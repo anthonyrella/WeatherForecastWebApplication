@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Best Weather App</title>
+	<link rel="stylesheet" href="resources/css/styles.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDxzpUvz-JNDqs_9XrAO_0ImPhnTIjcYr8"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="resources/js/script.js"></script>
+</head>
+<body>
+	<div data-role=page id="page1">
+		<div data-role="header">
+			<h1>The Best Weather App</h1>
+		</div>
+			<ul id="" data-role="listview" data-filter="true" data-inset="true" data-filter-reveal="true" data-autodividers="true">
+			<div role="main" class="ui-content">
+				<div id="weatherForecast">
+					
+				</div>
+			</div>
+			</ul>
+		</div>
+	</div>
+	<div data-role=page id="page2">
+		<div id="detailHeader" data-role="header">
+			<h2 id="header"></h2>
+		</div>
+		<div id="details" role="main">
+		</div>
+	</div>
+</body>
+</html>
