@@ -1,0 +1,38 @@
+.copyright {
+    float: left;
+    display: inline-block;
+}
+
+#timestamp {}
+
+#temp {
+    float: right;
+    padding-right: 50px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+#city {
+    float: left;
+}
+
+#description {
+    float: left;
+    clear: left;
+}
+
+#icon {
+    height: 80px;
+    width: 80px;
+    float: right;
+    margin-right: 90px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    border-top-left-radius: 50px !important;
+    border-bottom-left-radius: 50px !important;
+}
+
+#search {
+    display: none;
+}
