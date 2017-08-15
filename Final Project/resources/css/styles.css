@@ -46,3 +46,16 @@
 #clear {
     float: right;
 }
+
+canvas {
+            border: thick solid black;
+            border-radius: 50px;
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            width: 800px;
+
+            
+}
