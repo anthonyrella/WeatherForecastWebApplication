@@ -170,13 +170,14 @@ $(document).one('pagecreate', function () {
 			.fail(function (e) {
 				console.log(e);
 			})
-
-		//data pulling incomplete
 	}
 
+	//create chart for 5 day forecast
 	function create5DayChart(forecastData) {
+		//data for date and temperature
 		var chart_date = new Array;
 		var chart_temp = new Array;
+
 
 		$.each(forecastData.list, function(key, value){
 			console.log(value.dt_txt);
@@ -187,6 +188,7 @@ $(document).one('pagecreate', function () {
 			chart_temp.push(tempfloat);
 		});
 
+		//refines above data into a more readable format
 		var chart_day5d = new Array;
 		var chart_temp5d_min = new Array();
 		var chart_temp5d_max = new Array();
@@ -194,7 +196,7 @@ $(document).one('pagecreate', function () {
 
 		var min= max= avg=chart_temp[0]; 
 		var curday=chart_date[0].getDay();
-
+		//because min and max temperatures are the same, the daytime high and low are taken and then averaged
 		for(var i = 0; i < chart_temp.length; i++){
 			if(curday != chart_date[i].getDay()){
 				chart_day5d.push(day[curday]);
@@ -218,6 +220,12 @@ $(document).one('pagecreate', function () {
 		chart_temp5d_min.push(min);
 		chart_temp5d_max.push(max);
 		chart_temp5d_avg.push(avg);
+
+		//remove old canvas and replace it with new one of the same id
+		$('#FiveDay').remove();
+		$('<canvas></canvas>').attr('id', "FiveDay").appendTo('#graphs');
+
+		//graph creation -- with help from examples from their website
 		var cvs = document.getElementById("FiveDay");
 		var ctx = cvs.getContext('2d');
 		var chartData = {
@@ -278,26 +286,39 @@ $(document).one('pagecreate', function () {
                 }
             }
         };	
+        //create new graph
 		new Chart(ctx,chartData);
 	}
+
+	//create forecast for 24 hours
 	function create24HourChart(forecastData) {
+
+		//raw data
 		var chart_date = new Array;
 		var chart_temp = new Array;
 		$.each(forecastData.list, function(key, value){
 			console.log(value.dt_txt);
 			var todate = new Date(value.dt_txt);
-			
 			var tempfloat = parseFloat(value.main.temp);
 			chart_date.push(todate);
 			chart_temp.push(tempfloat);
 		});
+
+		//refining data
 		var chart_day24h = new Array;
 		var chart_temp24h = new Array;
+		//because the intervals are in 3s, we take the first 8 which add up to 24 hours
 		for(var i = 0; i < 8; i++){
 			var datetext=day[chart_date[i].getDay()] + ', ' + chart_date[i].getHours() + '00';
 			chart_temp24h.push(chart_temp[i]);
 			chart_day24h.push(datetext);
 		}
+
+		//recreating canvas
+		$('#TwentyFourHour').remove();
+		$('<canvas></canvas>').attr('id', "TwentyFourHour").appendTo('#graphs');
+
+		//chart creation
 		var cvs = document.getElementById("TwentyFourHour");
 		var ctx = cvs.getContext('2d');
 		var chartData = {
