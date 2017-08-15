@@ -2,6 +2,7 @@ $(document).one('pagecreate', function () {
 
 	var search = $('#search');
 	var recent = $('#recent');
+	var cityList = $('#cityNamesList');
 	var searchVal;
 	var day=['Sun','Mon','Tues','Wed','Thurs','Fri','Sat'];
 	updateWeatherCurrentLocation();
@@ -13,6 +14,8 @@ $(document).one('pagecreate', function () {
 	//will read names from drive
 	function getCityListNames()
 	{
+		if(cityList.is(':empty'))
+		{
 		$.getJSON('../Final Project/resources/data/cities.JSON')
 			.done(function(data){
 				console.log(data);
@@ -28,6 +31,7 @@ $(document).one('pagecreate', function () {
 			.fail(function(e){
 				console.log(e);
 			})
+	}
 	}
 
 	//will call method to search for current gps location
@@ -69,20 +73,50 @@ $(document).one('pagecreate', function () {
 				$("#temp").append(temp);
 				$("#city").append(locationName);
 				$("#description").append(weather);
-
-				var imageUrl = '../Final Project/resources/images/cloud.png';
-
+//brandon just do rain, clear, thunderstorms, snow, cloudy, partly cloudy, haze
+				var imageUrl = '../Final Project/resources/images/' + weather + '.png';
 				//need to add all possible weather descriptions. Just a test
 				switch (weather) {
-					case 'few clouds':
+					case 'clear sky':
 						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
 						break;
-					case 'few clouds':
+					case 'scattered clouds':
 						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
 						break;
+					case 'broken clouds':
+						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
+						break;
+					case weather.includes('snow'):
+						weatherDescription.attr('src', weather.includes(imageUrl));
+						getCityListNames();
+						break;
+					case 'thunderstorm':
+						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
+						break;
+					case 'light rain':
+						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
+						break;
+					case 'heavy rain':
+						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
+						break;
+					case 'overcast clouds':
+						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
+						break;
+					case 'fog':
+						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
+						break;
+
 					default:
 						weatherDescription.attr('src', imageUrl);
-				getCityListNames();
+						getCityListNames();
 				}
 
 			})
@@ -97,7 +131,7 @@ $(document).one('pagecreate', function () {
 	function getCityWeatherInfo(cityName) {
 		$.getJSON('http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=9ea3d628a6d3e398f9c7e992b0ecee16&units=metric')
 			.done(function (data) {
-
+//brandon just do rain, clear, thunderstorms, snow, cloudy, partly cloudy, haze
 				console.log(data);
 				var temp = data.main.temp + " &#8451;";
 				console.log(temp);
@@ -113,18 +147,50 @@ $(document).one('pagecreate', function () {
 				$("#description").append(weather);
 
 
-				var imageUrl = '../Final Project/resources/images/cloud.png';
+				var imageUrl = '../Final Project/resources/images/' + weather + '.png';
 
 				//need to add all possible weather descriptions. Just a test
 				switch (weather) {
-					case 'few clouds':
+					case 'clear sky':
 						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
 						break;
-					case 'few clouds':
+					case 'scattered clouds':
 						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
 						break;
+					case 'broken clouds':
+						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
+						break;
+					case weather.includes('snow'):
+						weatherDescription.attr('src', weather.includes(imageUrl));
+						getCityListNames();
+						break;
+					case 'thunderstorm':
+						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
+						break;
+					case 'light rain':
+						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
+						break;
+					case 'heavy rain':
+						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
+						break;
+					case 'overcast clouds':
+						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
+						break;
+					case 'fog':
+						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
+						break;
+
 					default:
 						weatherDescription.attr('src', imageUrl);
+						getCityListNames();
 				}
 
 			})
