@@ -164,6 +164,8 @@ $(document).one('pagecreate', function () {
 					//var desc;
 					console.log(forecastInfo.dt_txt);
 				})
+			create24HourChart(data);
+			create5DayChart(data);
 			})
 			.fail(function (e) {
 				console.log(e);
@@ -245,7 +247,7 @@ $(document).one('pagecreate', function () {
                 }]
             },
             options: {
-                responsive: false,
+                responsive: true,
                 title:{
                     display:true,
                     text:'Forecast'
@@ -311,7 +313,7 @@ $(document).one('pagecreate', function () {
 	            }]
 	        },
 	        options: {
-	            responsive: false,
+	            responsive: true,
 	            title:{
 	                display:true,
 	                text:'Forecast'
@@ -356,6 +358,7 @@ $(document).one('pagecreate', function () {
 		$("#description").html("");
 		if (searchVal) {
 			getCityWeatherInfo(searchVal);
+			getCityForecastWeather(searchVal);
 		} else {
 			updateWeatherCurrentLocation();
 		}
@@ -389,7 +392,7 @@ $(document).one('pagecreate', function () {
 			$("#icon").attr('src', "");
 
 			getCityWeatherInfo(searchVal);
-
+			getCityForecastWeather(searchVal);
 			searchedCityStorage(searchVal);
 
 		}
@@ -439,6 +442,7 @@ $(document).one('pagecreate', function () {
 		$("#description").html("");
 		$("#icon").attr('src', "");
 		getCityWeatherInfo(city);
+		getCityForecastWeather(city);
 		$.mobile.changePage("#homePage");
 
 	});
