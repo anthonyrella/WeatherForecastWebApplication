@@ -25,15 +25,14 @@
 		</div>
 
 		<div role="main" class="ui-content weatherDescription">
-			<div id="weatherForecast">
-				<input type="text" name="name" id="search" value="" placeholder="Enter a city name...">
-				<h1 id="temp">
-					<h1>
-						<h2 id="city"></h2>
-						<p id=description></p>
-						<img id="icon" src="" alt="">
-			</div>
+
+			<input type="text" name="name" id="search" value="" style="box-shadow:0px;" placeholder="Type a city name then hit enter">
+			<h1 id="temp"></h1>
+			<h2 id="city"></h2>
+			<p id=description></p>
+			<img id="icon" src="" alt="">
 		</div>
+
 
 		<div data-role="footer">
 			<p style="display:inline-block;" id="timestamp">&nbsp; Updated on</p>
@@ -47,14 +46,33 @@
 	<div data-role=page id="cities">
 		<div id="detailHeader" data-role="header">
 			<h2 id="header">Cities</h2>
+			<a href="#homePage" class="ui-btn  ui-shadow ui-corner-all ui-icon-back ui-btn-icon-notext ui-btn-left "></a>
 
 		</div>
 		<div id="details" role="main">
-			<h3>Recent Locations</h3>
 			<div>
-
+				<p style="display:inline-block;" class="citySection">Recent Locations</p>
+				<button id="clear" data-inline="true" data-role="button" data-icon="delete" data-mini="true">Clear</button>
 			</div>
-			<h3>Saved Cities</h3>
+
+			<div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="a" data-dismissible="false" class="centerDiv">
+				<div data-role="header" data-theme="a">
+					<h1>Delete Contact?</h1>
+				</div>
+				<div role="main" class="ui-content">
+					<h4 class="ui-title">Are you sure you want to clear recent searches?</h4>
+					<p>This action cannot be undone.</p>
+					<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a" data-rel="back">Cancel</a>
+					<a href="#" id="delete" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a" data-rel="back" data-transition="flow">Delete</a>
+				</div>
+			</div>
+
+			<div>
+				<ul id="recent" data-role="listview">
+
+					<ul>
+			</div>
+			<p class="citySection">Saved Cities</p>
 			<div>
 
 			</div>
