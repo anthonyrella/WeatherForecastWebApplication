@@ -9,6 +9,25 @@ $(document).one('pagecreate', function () {
 	loadSavedCities();
 
 
+	//will read names from drive
+	function getCityListNames()
+	{
+		$.getJSON('../Final Project/resources/data/cities.JSON')
+			.done(function(data){
+				console.log(data);
+				$.each(data, function(key, city){
+					$('<li></li>').attr('id', 'city' + key)
+								  .appendTo('#cityNamesList');
+							$('<a></a>').attr('href', '#homePage')
+										.attr('id', 'citySearch')
+									   .append(city.name)
+									   .appendTo('#city' + key);
+				})
+			})
+			.fail(function(e){
+				console.log(e);
+			})
+	}
 
 	//will call method to search for current gps location
 	function updateWeatherCurrentLocation() {
@@ -60,6 +79,7 @@ $(document).one('pagecreate', function () {
 						break;
 					default:
 						weatherDescription.attr('src', imageUrl);
+				getCityListNames();
 				}
 
 			})
