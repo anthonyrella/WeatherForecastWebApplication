@@ -1,5 +1,4 @@
 $(document).one('pagecreate', function () {
-
 	var search = $('#search');
 	var recent = $('#recent');
 	var cityList = $('#cityNamesList');
@@ -9,40 +8,36 @@ $(document).one('pagecreate', function () {
 	search.parent("div").hide();
 	var savedSearches = new Array;
 	loadSavedCities();
-
+	getCityListNames();
 
 	//will read names from drive
 	function getCityListNames()
 	{
-		if(cityList.is(':empty'))
-		{
+		if(cityList.is(':empty')){
 		$.getJSON('../Final Project/resources/data/cities.JSON')
 			.done(function(data){
-				console.log(data);
 				$.each(data, function(key, city){
 					$('<li></li>').attr('id', 'city' + key)
 								  .appendTo('#cityNamesList');
-							$('<a></a>').attr('href', '#homePage')
-										.attr('id', 'citySearch')
-									   .append(city.name)
-									   .appendTo('#city' + key);
+					$('<a></a>').attr('href', '#homePage')
+								.attr('id', 'citySearch')
+							    .append(city.name)
+							    .appendTo('#city' + key);
 				})
 			})
 			.fail(function(e){
 				console.log(e);
 			})
-	}
+		}
 	}
 
 	//will call method to search for current gps location
 	function updateWeatherCurrentLocation() {
 
-
 		if (navigator.geolocation)
 			navigator.geolocation.getCurrentPosition(showWeather, showError);
 		else
 			Console.log("Geolocation Not supported by your browser!");
-
 	}
 
 	//finds gps location and calls method to run ajax for weather api
@@ -60,139 +55,89 @@ $(document).one('pagecreate', function () {
 	function getCurrentWeatherInfo(lat, long) {
 		$.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + '&appid=9ea3d628a6d3e398f9c7e992b0ecee16&units=metric')
 			.done(function (data) {
-				console.log(data);
 				var temp = data.main.temp + " &#8451;";
-				console.log(temp);
 				var locationName = data.name;
-				console.log(locationName);
 				var weather = data.weather[0].description;
-				console.log(weather);
-
 				var weatherDescription = $('#icon');
-
 				$("#temp").append(temp);
 				$("#city").append(locationName);
 				$("#description").append(weather);
-//brandon just do rain, clear, thunderstorms, snow, cloudy, partly cloudy, haze
 				var imageUrl = '../Final Project/resources/images/' + weather + '.png';
-				//need to add all possible weather descriptions. Just a test
 				switch (weather) {
-					case 'clear sky':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
+					case weather.includes('clear'):
+						weatherDescription.attr('src', '../Final Project/resources/images/clear.png');
 						break;
-					case 'scattered clouds':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
-						break;
-					case 'broken clouds':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
+					case weather.includes('clouds'):
+						weatherDescription.attr('src', '../Final Project/resources/images/cloud.png');
 						break;
 					case weather.includes('snow'):
-						weatherDescription.attr('src', weather.includes(imageUrl));
-						getCityListNames();
+						weatherDescription.attr('src', '../Final Project/resources/images/snow.png');
 						break;
-					case 'thunderstorm':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
+					case weather.includes('thunderstorm'):
+						weatherDescription.attr('src', '../Final Project/resources/images/thunderstorm.png');
 						break;
-					case 'light rain':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
+					case weather.includes('rain'):
+						weatherDescription.attr('src', '../Final Project/resources/images/rain.png');
 						break;
-					case 'heavy rain':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
+					case weather.includes('fog'):
+						weatherDescription.attr('src', '../Final Project/resources/images/fog.png');
 						break;
-					case 'overcast clouds':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
+					case weather.includes('smoke'):
+						weatherDescription.attr('src', '../Final Project/resources/images/smoke.png');
 						break;
-					case 'fog':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
+					case weather.includes('haze'):
+						weatherDescription.attr('src', '../Final Project/resources/images/haze.png');
 						break;
-
 					default:
 						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
 				}
-
 			})
 			.fail(function (e) {
 				console.log(e);
 			})
-
-
-
 	}
+
 	//ajax call to weather api by city name and displays weather information to homepage
 	function getCityWeatherInfo(cityName) {
 		$.getJSON('http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=9ea3d628a6d3e398f9c7e992b0ecee16&units=metric')
 			.done(function (data) {
-//brandon just do rain, clear, thunderstorms, snow, cloudy, partly cloudy, haze
-				console.log(data);
 				var temp = data.main.temp + " &#8451;";
-				console.log(temp);
 				var locationName = data.name;
 				console.log(locationName);
 				var weather = data.weather[0].description;
-				console.log(weather);
-
 				var weatherDescription = $('#icon');
-
 				$("#temp").append(temp);
 				$("#city").append(locationName);
 				$("#description").append(weather);
-
-
 				var imageUrl = '../Final Project/resources/images/' + weather + '.png';
-
-				//need to add all possible weather descriptions. Just a test
 				switch (weather) {
-					case 'clear sky':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
+					case weather.includes('clear'):
+						weatherDescription.attr('src', '../Final Project/resources/images/clear.png');
 						break;
-					case 'scattered clouds':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
-						break;
-					case 'broken clouds':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
+					case weather.includes('clouds'):
+						weatherDescription.attr('src', '../Final Project/resources/images/cloud.png');
 						break;
 					case weather.includes('snow'):
-						weatherDescription.attr('src', weather.includes(imageUrl));
-						getCityListNames();
+						weatherDescription.attr('src', '../Final Project/resources/images/snow.png');
 						break;
-					case 'thunderstorm':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
+					case weather.includes('thunderstorm'):
+						weatherDescription.attr('src', '../Final Project/resources/images/thunderstorm.png');
 						break;
-					case 'light rain':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
+					case weather.includes('rain'):
+						weatherDescription.attr('src', '../Final Project/resources/images/rain.png');
 						break;
-					case 'heavy rain':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
+					case weather.includes('fog'):
+						weatherDescription.attr('src', '../Final Project/resources/images/fog.png');
 						break;
-					case 'overcast clouds':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
+					case weather.includes('smoke'):
+						weatherDescription.attr('src', '../Final Project/resources/images/smoke.png');
 						break;
-					case 'fog':
-						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
+					case weather.includes('haze'):
+						weatherDescription.attr('src', '../Final Project/resources/images/haze.png');
 						break;
-
 					default:
 						weatherDescription.attr('src', imageUrl);
-						getCityListNames();
 				}
-
 			})
 			.fail(function (e) {
 				console.log(e);
@@ -203,11 +148,9 @@ $(document).one('pagecreate', function () {
 	function getForecastWeather(lat, long) {
 		$.getJSON('http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&appid=9ea3d628a6d3e398f9c7e992b0ecee16&units=metric')
 			.done(function (data) {
-				console.log(data);
 				var locationName = "Forecast location: " + data.city.name;
 				console.log(locationName);
 				$.each(data.list, function (key, forecastInfo) {
-					//var desc;
 					console.log(forecastInfo.dt_txt);
 				})
 				create24HourChart(data);
@@ -216,10 +159,9 @@ $(document).one('pagecreate', function () {
 			.fail(function (e) {
 				console.log(e);
 			})
-
-		//data pulling incomplete
 	}
 
+	//ajax call to weather api for forecast on specific city entered
 	function getCityForecastWeather(cityName) {
 		$.getJSON('http://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=9ea3d628a6d3e398f9c7e992b0ecee16&units=metric')
 			.done(function (data) {
@@ -227,7 +169,6 @@ $(document).one('pagecreate', function () {
 				var locationName = "Forecast location: " + data.city.name;
 				console.log(locationName);
 				$.each(data.list, function (key, forecastInfo) {
-					//var desc;
 					console.log(forecastInfo.dt_txt);
 				})
 			create24HourChart(data);
@@ -244,7 +185,6 @@ $(document).one('pagecreate', function () {
 		var chart_date = new Array;
 		var chart_temp = new Array;
 
-
 		$.each(forecastData.list, function(key, value){
 			console.log(value.dt_txt);
 			var todate = new Date(value.dt_txt);
@@ -259,9 +199,9 @@ $(document).one('pagecreate', function () {
 		var chart_temp5d_min = new Array();
 		var chart_temp5d_max = new Array();
 		var chart_temp5d_avg = new Array();
-
 		var min= max= avg=chart_temp[0]; 
 		var curday=chart_date[0].getDay();
+
 		//because min and max temperatures are the same, the daytime high and low are taken and then averaged
 		for(var i = 0; i < chart_temp.length; i++){
 			if(curday != chart_date[i].getDay()){
@@ -358,7 +298,6 @@ $(document).one('pagecreate', function () {
 
 	//create forecast for 24 hours
 	function create24HourChart(forecastData) {
-
 		//raw data
 		var chart_date = new Array;
 		var chart_temp = new Array;
@@ -369,7 +308,6 @@ $(document).one('pagecreate', function () {
 			chart_date.push(todate);
 			chart_temp.push(tempfloat);
 		});
-
 		//refining data
 		var chart_day24h = new Array;
 		var chart_temp24h = new Array;
@@ -379,11 +317,9 @@ $(document).one('pagecreate', function () {
 			chart_temp24h.push(chart_temp[i]);
 			chart_day24h.push(datetext);
 		}
-
 		//recreating canvas
 		$('#TwentyFourHour').remove();
 		$('<canvas></canvas>').attr('id', "TwentyFourHour").appendTo('#graphs');
-
 		//chart creation
 		var cvs = document.getElementById("TwentyFourHour");
 		var ctx = cvs.getContext('2d');
@@ -434,12 +370,11 @@ $(document).one('pagecreate', function () {
 		new Chart(ctx,chartData);
 	}
 	function showError() {
-
+		alert("Your Location is required for this Application to run! Please re-enable it and refresh the page. Thank you.");
 	}
 
 	//will refresh city if city has been entered in seach. Else will refresh current location	
 	$(document).on('tap', '#refresh', function () {
-
 		$("#temp").html("");
 		$("#city").html("");
 		$("#description").html("");
@@ -449,13 +384,10 @@ $(document).one('pagecreate', function () {
 		} else {
 			updateWeatherCurrentLocation();
 		}
-
 		var now = new Date($.now());
 		var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 
 		$('#timestamp').html("&nbsp; Updated on " + formatted);
-
-
 	})
 
 	//toggles search city bar
@@ -481,48 +413,34 @@ $(document).one('pagecreate', function () {
 			getCityWeatherInfo(searchVal);
 			getCityForecastWeather(searchVal);
 			searchedCityStorage(searchVal);
-
 		}
 	});
 
 	//pushes recent city search to object and local storage and prepends latest city search to top of recent city search list
 	function searchedCityStorage(searchVal) {
-
 		if (savedSearches == null) {
 			savedSearches = [searchVal];
 		} else {
 			savedSearches.push(searchVal);
 		}
-
 		localStorage.setItem("searchedCity", JSON.stringify(savedSearches));
-
 		savedSearches = JSON.parse(localStorage.getItem("searchedCity"));
-
 		var latestSearch = savedSearches[savedSearches.length - 1];
-
-		//little bug: when running app for first time, with no searches in local storage, before you navigate to cities page if you make a search you get some console errors, but app still works fine. Probably because im trying to refresh data page without being on it?
 		recent.prepend("<li><a id='citySearch'>" + latestSearch + "</a></li>");
 			recent.listview("refresh");
-
 	}
 
 	//loads local storage to populate recent city search
 	function loadSavedCities() {
-
 		savedSearches = JSON.parse(localStorage.getItem("searchedCity"));
-
 		if (savedSearches != null) {
 			savedSearches.forEach(function (latestSearch) {
-
 				recent.prepend("<li><a id='citySearch'>" + latestSearch + "</a></li>");
-
 			})
 		}
-
 	}
 	//select city from city page and return to homepage with weather information
 	$(document).on('tap', '#citySearch', function () {
-
 		var city = $(this).html();
 		$("#temp").html("");
 		$("#city").html("");
@@ -531,7 +449,6 @@ $(document).one('pagecreate', function () {
 		getCityWeatherInfo(city);
 		getCityForecastWeather(city);
 		$.mobile.changePage("#homePage");
-
 	});
 
 	//popup dialog when attempting to delete recent searches
@@ -547,8 +464,6 @@ $(document).one('pagecreate', function () {
 
 			recent.listview('refresh');
 			localStorage.removeItem("searchedCity");
-
-
 		});
 
 	})
