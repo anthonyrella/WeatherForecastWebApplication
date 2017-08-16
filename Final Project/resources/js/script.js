@@ -45,9 +45,9 @@ $(document).one('pagecreate', function () {
 		var pos = {};
 		pos.latitude = position.coords.latitude;
 		pos.longitude = position.coords.longitude;
-		console.log("Getting Current Weather...");
+	
 		getCurrentWeatherInfo(pos.latitude, pos.longitude);
-		console.log("Getting Current Forecast...");
+	
 		getForecastWeather(pos.latitude, pos.longitude);
 	}
 
@@ -58,39 +58,14 @@ $(document).one('pagecreate', function () {
 				var temp = data.main.temp + " &#8451;";
 				var locationName = data.name;
 				var weather = data.weather[0].description;
-				var weatherDescription = $('#icon');
+				var weatherIcon = data.weather[0].icon;
 				$("#temp").append(temp);
 				$("#city").append(locationName);
 				$("#description").append(weather);
-				var imageUrl = '../Final Project/resources/images/' + weather + '.png';
-				switch (weather) {
-					case weather.includes('clear'):
-						weatherDescription.attr('src', '../Final Project/resources/images/clear.png');
-						break;
-					case weather.includes('clouds'):
-						weatherDescription.attr('src', '../Final Project/resources/images/cloud.png');
-						break;
-					case weather.includes('snow'):
-						weatherDescription.attr('src', '../Final Project/resources/images/snow.png');
-						break;
-					case weather.includes('thunderstorm'):
-						weatherDescription.attr('src', '../Final Project/resources/images/thunderstorm.png');
-						break;
-					case weather.includes('rain'):
-						weatherDescription.attr('src', '../Final Project/resources/images/rain.png');
-						break;
-					case weather.includes('fog'):
-						weatherDescription.attr('src', '../Final Project/resources/images/fog.png');
-						break;
-					case weather.includes('smoke'):
-						weatherDescription.attr('src', '../Final Project/resources/images/smoke.png');
-						break;
-					case weather.includes('haze'):
-						weatherDescription.attr('src', '../Final Project/resources/images/haze.png');
-						break;
-					default:
-						weatherDescription.attr('src', imageUrl);
-				}
+				$("#icon").attr('src', 'http://openweathermap.org/img/w/'+ weatherIcon + '.png')
+				
+
+				
 			})
 			.fail(function (e) {
 				console.log(e);
@@ -103,41 +78,15 @@ $(document).one('pagecreate', function () {
 			.done(function (data) {
 				var temp = data.main.temp + " &#8451;";
 				var locationName = data.name;
-				console.log(locationName);
+			
 				var weather = data.weather[0].description;
-				var weatherDescription = $('#icon');
+			var weatherIcon = data.weather[0].icon;
 				$("#temp").append(temp);
 				$("#city").append(locationName);
 				$("#description").append(weather);
-				var imageUrl = '../Final Project/resources/images/' + weather + '.png';
-				switch (weather) {
-					case weather.includes('clear'):
-						weatherDescription.attr('src', '../Final Project/resources/images/clear.png');
-						break;
-					case weather.includes('clouds'):
-						weatherDescription.attr('src', '../Final Project/resources/images/cloud.png');
-						break;
-					case weather.includes('snow'):
-						weatherDescription.attr('src', '../Final Project/resources/images/snow.png');
-						break;
-					case weather.includes('thunderstorm'):
-						weatherDescription.attr('src', '../Final Project/resources/images/thunderstorm.png');
-						break;
-					case weather.includes('rain'):
-						weatherDescription.attr('src', '../Final Project/resources/images/rain.png');
-						break;
-					case weather.includes('fog'):
-						weatherDescription.attr('src', '../Final Project/resources/images/fog.png');
-						break;
-					case weather.includes('smoke'):
-						weatherDescription.attr('src', '../Final Project/resources/images/smoke.png');
-						break;
-					case weather.includes('haze'):
-						weatherDescription.attr('src', '../Final Project/resources/images/haze.png');
-						break;
-					default:
-						weatherDescription.attr('src', imageUrl);
-				}
+				$("#icon").attr('src', 'http://openweathermap.org/img/w/'+ weatherIcon + '.png')
+				
+			
 			})
 			.fail(function (e) {
 				console.log(e);
@@ -149,10 +98,8 @@ $(document).one('pagecreate', function () {
 		$.getJSON('http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&appid=9ea3d628a6d3e398f9c7e992b0ecee16&units=metric')
 			.done(function (data) {
 				var locationName = "Forecast location: " + data.city.name;
-				console.log(locationName);
-				$.each(data.list, function (key, forecastInfo) {
-					console.log(forecastInfo.dt_txt);
-				})
+			
+			
 				create24HourChart(data);
 				create5DayChart(data);
 			})
@@ -165,12 +112,9 @@ $(document).one('pagecreate', function () {
 	function getCityForecastWeather(cityName) {
 		$.getJSON('http://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=9ea3d628a6d3e398f9c7e992b0ecee16&units=metric')
 			.done(function (data) {
-				console.log(data);
+			
 				var locationName = "Forecast location: " + data.city.name;
-				console.log(locationName);
-				$.each(data.list, function (key, forecastInfo) {
-					console.log(forecastInfo.dt_txt);
-				})
+			
 			create24HourChart(data);
 			create5DayChart(data);
 			})
@@ -186,7 +130,7 @@ $(document).one('pagecreate', function () {
 		var chart_temp = new Array;
 
 		$.each(forecastData.list, function(key, value){
-			console.log(value.dt_txt);
+			
 			var todate = new Date(value.dt_txt);
 			
 			var tempfloat = parseFloat(value.main.temp);
@@ -302,7 +246,6 @@ $(document).one('pagecreate', function () {
 		var chart_date = new Array;
 		var chart_temp = new Array;
 		$.each(forecastData.list, function(key, value){
-			console.log(value.dt_txt);
 			var todate = new Date(value.dt_txt);
 			var tempfloat = parseFloat(value.main.temp);
 			chart_date.push(todate);
