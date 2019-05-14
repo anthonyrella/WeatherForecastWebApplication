@@ -84,7 +84,7 @@ $(document).one('pagecreate', function () {
 				$("#temp").append(temp);
 				$("#city").append(locationName);
 				$("#description").append(weather);
-				$("#icon").attr('src', 'http://openweathermap.org/img/w/'+ weatherIcon + '.png')
+				$("#icon").attr('src', 'https://cors-anywhere.herokuapp.com/http://openweathermap.org/img/w/'+ weatherIcon + '.png')
 				
 			
 			})
