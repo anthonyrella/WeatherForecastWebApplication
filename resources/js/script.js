@@ -14,7 +14,7 @@ $(document).one('pagecreate', function () {
 	function getCityListNames()
 	{
 		if(cityList.is(':empty')){
-		$.getJSON('../../resources/data/cities.JSON')
+		$.getJSON('../data/cities.JSON')
 			.done(function(data){
 				$.each(data, function(key, city){
 					$('<li></li>').attr('id', 'city' + key)
