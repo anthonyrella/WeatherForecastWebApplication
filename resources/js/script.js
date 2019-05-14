@@ -53,7 +53,7 @@ $(document).one('pagecreate', function () {
 
 	//ajax call to weather api and displays current location values to homepage
 	function getCurrentWeatherInfo(lat, long) {
-		$.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + '&appid=9ea3d628a6d3e398f9c7e992b0ecee16&units=metric')
+		$.getJSON('https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + '&appid=9ea3d628a6d3e398f9c7e992b0ecee16&units=metric')
 			.done(function (data) {
 				var temp = data.main.temp + " &#8451;";
 				var locationName = data.name;
@@ -74,7 +74,7 @@ $(document).one('pagecreate', function () {
 
 	//ajax call to weather api by city name and displays weather information to homepage
 	function getCityWeatherInfo(cityName) {
-		$.getJSON('http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=9ea3d628a6d3e398f9c7e992b0ecee16&units=metric')
+		$.getJSON('https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=9ea3d628a6d3e398f9c7e992b0ecee16&units=metric')
 			.done(function (data) {
 				var temp = data.main.temp + " &#8451;";
 				var locationName = data.name;
@@ -95,7 +95,7 @@ $(document).one('pagecreate', function () {
 
 	//ajax call to weather api for 5 day forecast and displays weather information to homepage
 	function getForecastWeather(lat, long) {
-		$.getJSON('http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&appid=9ea3d628a6d3e398f9c7e992b0ecee16&units=metric')
+		$.getJSON('https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&appid=9ea3d628a6d3e398f9c7e992b0ecee16&units=metric')
 			.done(function (data) {
 				var locationName = "Forecast location: " + data.city.name;
 			
@@ -110,7 +110,7 @@ $(document).one('pagecreate', function () {
 
 	//ajax call to weather api for forecast on specific city entered
 	function getCityForecastWeather(cityName) {
-		$.getJSON('http://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=9ea3d628a6d3e398f9c7e992b0ecee16&units=metric')
+		$.getJSON('https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=9ea3d628a6d3e398f9c7e992b0ecee16&units=metric')
 			.done(function (data) {
 			
 				var locationName = "Forecast location: " + data.city.name;
